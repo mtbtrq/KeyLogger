@@ -10,6 +10,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const port = process.env.PORT || 5000;
 
 const db = Database("database.db");
+
 const createTableStatement = db.prepare(`
 CREATE TABLE IF NOT EXISTS logs (
     log text,
@@ -17,6 +18,10 @@ CREATE TABLE IF NOT EXISTS logs (
 )
 `);
 createTableStatement.run();
+
+app.get("/", (req, res) => {
+    return res.send("Hello! This is functional! :D");
+});
 
 const main = require("./routes/main");
 app.use("/", main);

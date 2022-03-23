@@ -8,15 +8,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post("/", handleRequest, (req, res) => {
-    let data = req.body?.logs;
-    const time = req.body?.time;
+    let data = req.body.logs;
+    const time = req.body.time;
 
     const finalData = data.join(" ")
 
     const insertDataStatement = db.prepare("INSERT INTO logs (log, time) VALUES (?, ?)");
     insertDataStatement.run(finalData, time);
 
-    res.send({
+    return res.send({
         success: true,
     });
 });
